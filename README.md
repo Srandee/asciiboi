@@ -2,17 +2,20 @@
 
 A small creature who used to be a file and now has a URL.
 
-## Live on the internet
+## Live
 
 **https://asciiboi.tiiny.site/**
 
-That is a public HTTPS page. Open it on a phone, a laptop, or any browser that can reach the internet.
-
-Poke the creature, then type `help` in the terminal.
-
-GitHub Pages (after the repo Pages source is set to GitHub Actions):
+If that 404s, the free host dropped the file. The lasting GitHub URL is:
 
 **https://srandee.github.io/asciiboi/**
+
+Turn it on once (phone: use the desktop site):
+
+1. [Settings → Pages](https://github.com/Srandee/asciiboi/settings/pages)
+2. **Source:** Deploy from a branch
+3. **Branch:** `gh-pages` / `/ (root)`
+4. Save
 
 ## Local
 
