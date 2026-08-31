@@ -14,6 +14,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css">
+  <script>
+    if (matchMedia("(max-width: 760px), (pointer: coarse)").matches) {
+      document.documentElement.classList.add("skip-boot");
+    }
+  </script>
 </head>
 <body>
   <div class="grain" aria-hidden="true"></div>
@@ -50,7 +55,7 @@
 
     <section class="panel">
       <div class="stats">
-        <article>
+        <article class="address">
           <h2>address</h2>
           <p id="public-url">resolving…</p>
         </article>
@@ -68,11 +73,26 @@
         </article>
       </div>
 
+      <div class="actions" id="actions" role="toolbar" aria-label="ASCIIBOI actions">
+        <button type="button" data-cmd="pet">pet</button>
+        <button type="button" data-cmd="poke">poke</button>
+        <button type="button" data-cmd="dance">dance</button>
+        <button type="button" data-cmd="sleep">sleep</button>
+        <button type="button" data-cmd="wake">wake</button>
+        <button type="button" data-cmd="ping">ping</button>
+        <button type="button" data-cmd="status">status</button>
+        <button type="button" data-cmd="whoami">whoami</button>
+        <button type="button" data-cmd="internet">internet</button>
+        <button type="button" data-cmd="help">help</button>
+        <button type="button" data-cmd="say">say</button>
+        <button type="button" data-cmd="clear">clear</button>
+      </div>
+
       <form class="term" id="term" autocomplete="off">
         <div class="term-log" id="term-log" aria-live="polite"></div>
         <label class="prompt">
           <span>you@internet:~$</span>
-          <input id="cmd" name="cmd" maxlength="80" placeholder="type help, then enter" aria-label="Command">
+          <input id="cmd" name="cmd" maxlength="80" enterkeyhint="send" placeholder="or type a command" aria-label="Command">
         </label>
       </form>
     </section>

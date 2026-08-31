@@ -67,6 +67,51 @@ const SPRITES = {
   ],
 };
 
+const SPRITES_COMPACT = {
+  idle: [
+    "    .----.",
+    "   / o  o \\",
+    "   |  BOI |",
+    "    '--+-'",
+    "     /  \\",
+  ],
+  blink: [
+    "    .----.",
+    "   / -  - \\",
+    "   |  BOI |",
+    "    '--+-'",
+    "     /  \\",
+  ],
+  happy: [
+    "    .----.",
+    "   / ^  ^ \\",
+    "   |  BOI |",
+    "    '--+-'",
+    "     /  \\",
+  ],
+  wave: [
+    "    .----. *",
+    "   / o  o \\/",
+    "   |  BOI |<",
+    "    '--+-'",
+    "     /  \\",
+  ],
+  dance: [
+    "  \\\\ .----. //",
+    "    / ^  ^ \\",
+    "    |  BOI |",
+    "     /    \\",
+    "    *      *",
+  ],
+  sleep: [
+    "    .----.  z",
+    "   / -  - \\",
+    "   |  nap |",
+    "    '--+-'",
+    "     /  \\",
+  ],
+};
+
 const LINES = {
   hello: [
     "i used to live in a directory listing.",
@@ -115,6 +160,7 @@ const cmd = document.getElementById("cmd");
 const boiHit = document.getElementById("boi-hit");
 const shareBtn = document.getElementById("share");
 const sky = document.getElementById("sky");
+const actions = document.getElementById("actions");
 
 const started = Date.now();
 let pose = "idle";
@@ -123,6 +169,9 @@ let walkDir = 1;
 let pets = Number(localStorage.getItem("asciiboi-pets") || 0);
 let sleeping = false;
 let reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const narrow = window.matchMedia("(max-width: 760px)");
+const coarse = window.matchMedia("(pointer: coarse)");
+let compact = narrow.matches;
 
 petsEl.textContent = String(pets);
 
@@ -132,7 +181,8 @@ function pick(list) {
 
 function draw(name) {
   pose = name;
-  spriteEl.textContent = (SPRITES[name] || SPRITES.idle).join("\n");
+  const pack = compact ? SPRITES_COMPACT : SPRITES;
+  spriteEl.textContent = (pack[name] || pack.idle).join("\n");
 }
 
 function say(text) {
@@ -184,7 +234,7 @@ async function bootSequence() {
   }
   boot.hidden = true;
   habitat.hidden = false;
-  cmd.focus();
+  if (!coarse.matches) cmd.focus();
 }
 
 function tickUptime() {
@@ -197,9 +247,10 @@ function tickUptime() {
 
 function wander() {
   if (reduced || sleeping) return;
-  walk += walkDir * (8 + Math.random() * 10);
-  if (walk > 90) walkDir = -1;
-  if (walk < -90) walkDir = 1;
+  const span = compact ? 28 : 90;
+  walk += walkDir * (6 + Math.random() * 8);
+  if (walk > span) walkDir = -1;
+  if (walk < -span) walkDir = 1;
   spriteEl.style.setProperty("--walk", `${walk}px`);
   if (pose === "idle" && Math.random() < 0.2) {
     draw("blink");
@@ -248,7 +299,7 @@ function nap() {
 
 const commands = {
   help() {
-    logLine("boi", "commands: help, pet, dance, poke, say <words>, status, ping, whoami, internet, sleep, wake, clear");
+    logLine("boi", "tap a button, or type: help, pet, dance, poke, say <words>, status, ping, whoami, internet, sleep, wake, clear");
   },
   pet: petBoi,
   dance,
@@ -286,33 +337,64 @@ const commands = {
   },
 };
 
-term.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const raw = cmd.value.trim();
-  cmd.value = "";
-  if (!raw) return;
-  logLine("me", `you@internet:~$ ${raw}`);
-  const [name, ...rest] = raw.split(/\s+/);
+function runCommand(raw) {
+  const text = raw.trim();
+  if (!text) return;
+  logLine("me", `you@internet:~$ ${text}`);
+  const [name, ...rest] = text.split(/\s+/);
   const arg = rest.join(" ");
-  if (name === "say") {
-    const text = arg || "…";
+  if (name.toLowerCase() === "say") {
+    const spoken = arg || "…";
     draw("wave");
-    say(text);
-    logLine("boi", text);
+    say(spoken);
+    logLine("boi", spoken);
     setMood("speaking");
     return;
   }
-  if (raw.toLowerCase().includes("true internet")) {
+  if (text.toLowerCase().includes("true internet")) {
     dance();
     logLine("boi", "YES. this is the stuff. globally routed, baby.");
     return;
   }
   const fn = commands[name.toLowerCase()];
   if (fn) fn();
-  else logLine("sys", `command not found: ${name}. try help`);
+  else logLine("sys", `command not found: ${name}. try a button, or help`);
+}
+
+function startSay() {
+  cmd.value = "say ";
+  cmd.focus();
+  const end = cmd.value.length;
+  cmd.setSelectionRange(end, end);
+}
+
+term.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const raw = cmd.value;
+  cmd.value = "";
+  runCommand(raw);
+});
+
+actions.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-cmd]");
+  if (!button) return;
+  const name = button.dataset.cmd;
+  if (name === "say") {
+    startSay();
+    return;
+  }
+  runCommand(name);
 });
 
 boiHit.addEventListener("click", poke);
+
+narrow.addEventListener("change", () => {
+  compact = narrow.matches;
+  walk = 0;
+  spriteEl.style.setProperty("--walk", "0px");
+  draw(pose);
+  stampNetwork();
+});
 
 shareBtn.addEventListener("click", async () => {
   const url = location.href;
@@ -329,12 +411,12 @@ function stampNetwork() {
   publicUrl.textContent = location.href;
   if (isPublic()) {
     live.classList.add("public");
-    liveLabel.textContent = "live on the internet";
-    sky.textContent = "the true internet · " + location.host;
+    liveLabel.textContent = compact ? "live" : "live on the internet";
+    sky.textContent = compact ? location.host : ("the true internet · " + location.host);
   } else {
     live.classList.add("local");
-    liveLabel.textContent = "local preview";
-    sky.textContent = "private loopback · deploy me to get a real url";
+    liveLabel.textContent = compact ? "local" : "local preview";
+    sky.textContent = compact ? "localhost" : "private loopback · deploy me to get a real url";
   }
 }
 
@@ -374,7 +456,7 @@ function fireflies() {
 draw("idle");
 stampNetwork();
 petsEl.textContent = String(pets);
-logLine("sys", "asciiboi habitat online. type help.");
+logLine("sys", "asciiboi habitat online. tap a button or type a command.");
 logLine("boi", pick(LINES.hello));
 say(pick(LINES.hello));
 setMood(isPublic() ? "publicly alive" : "waiting for a real url");
@@ -382,4 +464,9 @@ tickUptime();
 setInterval(tickUptime, 1000);
 setInterval(wander, 2400);
 fireflies();
-bootSequence();
+if (coarse.matches || narrow.matches) {
+  boot.hidden = true;
+  habitat.hidden = false;
+} else {
+  bootSequence();
+}

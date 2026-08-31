@@ -95,6 +95,44 @@ a:hover { color: var(--firefly); }
   padding: 1.25rem 0 3rem;
 }
 
+.actions {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.4rem;
+}
+
+.actions button {
+  margin: 0;
+  padding: 0.55rem 0.35rem;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--firefly);
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  cursor: pointer;
+}
+
+.actions button:hover,
+.actions button:focus-visible {
+  border-color: var(--firefly);
+  background: color-mix(in oklab, var(--firefly) 12%, var(--bg-2));
+  outline: none;
+}
+
+.actions button:active {
+  color: #111;
+  background: var(--firefly);
+}
+
+.actions button,
+.boi-hit,
+.text-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .mast {
   display: flex;
   justify-content: space-between;
@@ -346,11 +384,87 @@ h1 {
 }
 
 @media (max-width: 760px) {
-  .stats { grid-template-columns: 1fr 1fr; }
-  .mast { align-items: flex-start; }
-  .colophon { flex-direction: column; }
+  html, body { font-size: 13px; }
+  .habitat {
+    width: calc(100% - 0.9rem);
+    padding: 0.45rem 0 0.7rem;
+  }
+  .mast {
+    gap: 0.5rem;
+    padding: 0 0 0.4rem;
+    align-items: center;
+  }
+  .brand { gap: 0.5rem; }
+  .mark {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
+  .kicker { font-size: 0.58rem; letter-spacing: 0.12em; }
+  h1 { font-size: 1.55rem; }
+  .live {
+    padding: 0.25rem 0.45rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .stage {
+    margin: 0.4rem 0;
+    padding: 0.35rem 0.5rem 0.4rem;
+    box-shadow: none;
+  }
+  .sky {
+    margin: 0 0 0.2rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.08em;
+  }
+  .sprite {
+    font-size: 0.92rem;
+    line-height: 1;
+    text-shadow: none;
+  }
+  .ground { display: none; }
+  .speech {
+    min-height: 1.15em;
+    font-size: 1rem;
+  }
+  .panel { gap: 0.4rem; }
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.35rem;
+  }
+  .stats .address { display: none; }
+  .stats article { padding: 0.35rem 0.4rem; }
+  .stats h2 { margin: 0 0 0.1rem; font-size: 0.58rem; }
+  .stats p { font-size: 0.75rem; }
+  .actions {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.3rem;
+  }
+  .actions button {
+    min-height: 2.4rem;
+    padding: 0.3rem 0.2rem;
+    font-size: 0.72rem;
+  }
+  .term { min-height: 0; }
+  .term-log {
+    max-height: 4.6rem;
+    padding: 0.4rem 0.55rem 0.2rem;
+    font-size: 0.72rem;
+  }
+  .prompt {
+    padding: 0.4rem 0.55rem;
+    font-size: 0.72rem;
+  }
+  .colophon {
+    flex-direction: row;
+    margin-top: 0.45rem;
+    font-size: 0.68rem;
+    gap: 0.4rem;
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
+html.skip-boot .boot { display: none !important; }
+html.skip-boot .habitat[hidden] { display: block !important; }
   .pulse, .sprite { animation: none; transition: none; }
 }
