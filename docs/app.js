@@ -314,14 +314,19 @@ const commands = {
     setMood("awake");
   },
   status() {
-    logLine("boi", `live=${isPublic()} host=${hostLabel()} pets=${pets} mood=${moodEl.textContent}`);
+    const line = `live=${isPublic()} host=${hostLabel()} pets=${pets} mood=${moodEl.textContent}`;
+    logLine("boi", line);
+    say(line);
   },
   ping() {
     logLine("sys", "64 bytes from asciiboi: icmp_seq=1 ttl=64 time=too-fast-to-measure");
     logLine("boi", "pong. i am reachable.");
+    say("pong. i am reachable.");
   },
   whoami() {
-    logLine("boi", "asciiboi — small public creature. formerly a file.");
+    const line = "asciiboi — small public creature. formerly a file.";
+    logLine("boi", line);
+    say(line);
   },
   internet() {
     logLine("boi", pick(LINES.internet));
