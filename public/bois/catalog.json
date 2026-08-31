@@ -1,0 +1,44 @@
+{
+  "bois": [
+    {
+      "id": "sprout",
+      "name": "Pipkin",
+      "species": "sproutling",
+      "photo": "/bois/boi-01-sprout.jpg",
+      "blurb": "A lime pocket blob. Keeps a sprout watered with leftover scan-light.",
+      "traits": ["sprouty", "pocket-warm", "photosynthetic"]
+    },
+    {
+      "id": "loaf",
+      "name": "Nubloaf",
+      "species": "mothloaf",
+      "photo": "/bois/boi-02-loaf.jpg",
+      "blurb": "A sleepy bean in a mustard scarf. Hums when the camera focuses.",
+      "traits": ["sleepy", "snackish", "scarf-loyal"]
+    },
+    {
+      "id": "bot",
+      "name": "Voxbot",
+      "species": "voxelin",
+      "photo": "/bois/boi-03-bot.jpg",
+      "blurb": "A chunky little unit. Thinks every QR is a firmware update.",
+      "traits": ["electric", "beepy", "antenna-proud"]
+    },
+    {
+      "id": "moth",
+      "name": "Lumoth",
+      "species": "pippet",
+      "photo": "/bois/boi-04-moth.jpg",
+      "blurb": "Powdery wings, sparkly eyes. Lands on receipts and calls it home.",
+      "traits": ["nocturnal", "dusty-cute", "lamp-curious"]
+    },
+    {
+      "id": "cap",
+      "name": "Pinkap",
+      "species": "beanoid",
+      "photo": "/bois/boi-05-cap.jpg",
+      "blurb": "Marshmallow-pink with a tiny red cap. Collects barcodes like baseball cards.",
+      "traits": ["shiny", "cap-forward", "sprinkle-dusted"]
+    }
+  ]
+}

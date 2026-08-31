@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-dm), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-ibm), ui-monospace, monospace;
+  --color-ink: #10140c;
+  --color-moss: #181e14;
+  --color-bark: #2a3322;
+  --color-leaf: #c6f54a;
+  --color-leaf-dim: #8fb534;
+  --color-paper: #f3ead4;
+  --color-paper-2: #e7dcb8;
+  --color-ember: #ff5a36;
+  --color-mist: #a7b09a;
+  --color-foam: #e8f0d8;
+}
+
+html,
+body {
+  min-height: 100%;
+  background: #070806;
+  color: var(--color-paper);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.09;
+  background-image: radial-gradient(#fff 0.5px, transparent 0.6px);
+  background-size: 3px 3px;
+  mix-blend-mode: overlay;
+}
+
+.phone-shell {
+  min-height: 100dvh;
+  max-width: 430px;
+  margin: 0 auto;
+  background:
+    radial-gradient(1200px 480px at 50% -10%, #2a3a18 0%, transparent 55%),
+    linear-gradient(180deg, #141910 0%, #0c0f0a 100%);
+  box-shadow: 0 0 0 1px #1c2416, 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.paper-card {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-radius: 1.25rem;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.6) inset,
+    0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.ascii-face {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.15;
+  white-space: pre;
+  letter-spacing: 0.02em;
+}
+
+.btn-leaf {
+  background: var(--color-leaf);
+  color: var(--color-ink);
+  font-weight: 700;
+  border-radius: 999px;
+  box-shadow: 0 2px 0 #7fa31f;
+}
+
+.btn-leaf:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 #7fa31f;
+}
+
+.btn-ember {
+  background: var(--color-ember);
+  color: #fff8f3;
+  font-weight: 700;
+  border-radius: 999px;
+  box-shadow: 0 2px 0 #c23a1e;
+}
+
+.viewfinder {
+  border: 2px dashed rgba(198, 245, 74, 0.7);
+  box-shadow: 0 0 0 999px rgba(8, 10, 6, 0.55);
+}
+
+@keyframes print-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.print-line {
+  animation: print-in 0.35s ease both;
+}
