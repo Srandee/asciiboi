@@ -2,21 +2,19 @@
 
 A small creature who used to be a file and now has a URL.
 
-## Live habitat
+## Live habitat (this one stays up)
 
-**https://asciiboi.tiiny.site/**
+**https://rawcdn.githack.com/Srandee/asciiboi/c7f8a5a/docs/index.html**
 
-That is the real site (creature, buttons, terminal).
+That is the real site: creature, tap buttons, optional typing.
 
-`https://srandee.github.io/asciiboi/` is GitHub’s decorative “404 / Site not found” page until Pages is turned on. It is not the habitat.
+Free hosts like tiiny.site expire. When they do, they show **“Sorry, this content doesn’t exist.”** That is their takedown page, not ASCIIBOI. `github.io` shows GitHub’s own 404 until Pages is enabled.
 
-To make the GitHub URL work (phone: switch to desktop site):
+To make **https://srandee.github.io/asciiboi/** work:
 
-1. [Settings → Pages](https://github.com/Srandee/asciiboi/settings/pages)
-2. **Source:** Deploy from a branch
-3. **Branch:** `gh-pages` / `/ (root)` → Save
-
-Then https://srandee.github.io/asciiboi/ becomes the same habitat.
+1. [Settings → Pages](https://github.com/Srandee/asciiboi/settings/pages) (phone: desktop site)
+2. Source: **Deploy from a branch**
+3. Branch: **gh-pages** / **/ (root)** → Save
 
 ## Local
 
