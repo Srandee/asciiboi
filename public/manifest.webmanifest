@@ -1,0 +1,16 @@
+{
+  "name": "asciiboi",
+  "short_name": "asciiboi",
+  "description": "Scan a code. Hatch a little guy.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#10140c",
+  "theme_color": "#10140c",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
